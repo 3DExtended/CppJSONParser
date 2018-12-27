@@ -10,12 +10,9 @@ else()
     set(CPPJSONPARSER_LINK_TYPE SHARED)
 endif()
 
-add_library(cppJSONParser ${CPPJSONPARSER_LINK_TYPE} ${SOURCE_FILES} ${HEADER_FILES})
+add_library(cppJSONParser INTERFACE)#  ${CPPJSONPARSER_LINK_TYPE} ${SOURCE_FILES} ${HEADER_FILES})
 
-target_compile_options( cppJSONParser PUBLIC -std=c++11)
-
-
-target_include_directories(cppJSONParser PUBLIC
+target_include_directories(cppJSONParser INTERFACE
     include/
 )
 
