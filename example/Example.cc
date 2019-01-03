@@ -43,12 +43,14 @@ int main(int argc, char const *argv[])
     auto parser = new CJP::JSONParser();
     parser->registerType(
         "Object",
-        CJP::SpecialFields::Name, &Object::name,
+        "name", &Object::name,
         "objPath", &Object::objPath,
         "material", &Object::material,
         "integerValue", &Object::integerValue);
 
-    parser->add("Object");
+    parser->parse("./object.jsonx", "Object");
+
+    //parser->add("Object");
     //parser->register("objects", std::vector<Object>);//*/
     return 0;
 }

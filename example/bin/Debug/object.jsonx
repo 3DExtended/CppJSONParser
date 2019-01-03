@@ -1,7 +1,6 @@
-{
-    object: {
-        name: "apfel",
-        objPath: "./objects/apple.obj",
-        material: "./materials/apple.mtl"
-    }
+Object: {
+    name: "apfel",
+    objPath: "./objects/apple.obj",
+    material: "./materials/apple.mtl",
+    integerValue: 15
 }

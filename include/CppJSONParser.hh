@@ -1,9 +1,11 @@
+#include <fstream>
 #include <string>
 #include <iostream>
 #include <vector>
 #include <map>
 #include <type_traits>
 #include <functional>
+#include <algorithm>
 
 #include "CreatorImpl.hh"
 #include "FactoryPattern.hh"
@@ -43,7 +45,7 @@ enum Datatypes
     typeDouble = 1 << 2,
     typeFloat = 1 << 3,
 
-    typINVALID = 0xFFFFFFFFFFFF
+    typINVALID = 0xFFFFFFFF
 };
 
 Factory factory;
@@ -146,8 +148,43 @@ class JSONParser
         //*address = (long long)test;
 
         // Overwriting the std::string *
-        auto test = datatypeCreation[Datatypes::typeInt]("5015");
+        auto test = datatypeCreation[Datatypes::typeStdString]("Huhu");
+        //auto test = datatypeCreation[Datatypes::typeInt]("5015");
         *address = (addressType)test;
+    }
+
+    void parse(const std::string &path, const std::string &expectedType)
+    {
+        std::string fileContent = readFile(path);
+
+        int openBrac = 0;
+        int closeBrac = 0;
+        //check if occurences of "{" matches "}":
+        for (int i = 0; i < fileContent.size(); i++)
+        {
+            if (fileContent.at(i) == '{')
+                openBrac++;
+            else if (fileContent.at(i) == '{')
+                closeBrac++;
+        }
+        if (closeBrac != openBrac)
+        {
+            //TODO fail
+            return;
+        }
+
+        Base *p = factory.create(expectedType);
+        if (fileContent.substr(0, expectedType.size() + 1) != expectedType + ":")
+        {
+            //TODO fail
+            return;
+        }
+
+        //TODO make parser work:
+        // You know that the object you trying to create is of type expectedType.
+        // Now fill p based on this name and the offsets and datatypes stored in the maps
+
+        std::cout << fileContent;
     }
 
   private:
@@ -177,6 +214,21 @@ class JSONParser
         }
 
         return Datatypes::typINVALID;
+    }
+
+    std::string readFile(const std::string &path)
+    {
+        std::string fileContent = "";
+        std::ifstream input(path);
+        for (std::string line; getline(input, line);)
+        {
+            line.erase(remove(line.begin(), line.end(), ' '), line.end());
+            line.erase(remove(line.begin(), line.end(), '\0'), line.end());
+            line.erase(remove(line.begin(), line.end(), '\n'), line.end());
+            line.erase(remove(line.begin(), line.end(), '\r'), line.end());
+            fileContent += line;
+        }
+        return fileContent;
     }
 };
 } // namespace CJP
