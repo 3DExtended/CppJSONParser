@@ -1,0 +1,7 @@
+{
+    object: {
+        name: "apfel",
+        objPath: "./objects/apple.obj",
+        material: "./materials/apple.mtl"
+    }
+}
