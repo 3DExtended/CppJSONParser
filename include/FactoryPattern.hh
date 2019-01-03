@@ -29,3 +29,5 @@ inline void Factory::registerit(const std::string &classname, Creator *creator)
 
 #define REGISTERIMPL(classname) \
     const CJP::CreatorImpl<classname> classname::creator(#classname);
+
+#define REGISTERTYPE(classname, ...)

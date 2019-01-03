@@ -15,9 +15,10 @@ class Object : public CJP::Base
     Object(){};
     virtual ~Object(){};
     virtual void foo() { std::cout << "1"; };
-    std::string* name;
-    std::string* objPath;
-    std::string* material;
+    std::string *name;
+    std::string *objPath;
+    std::string *material;
+    int *integerValue;
 };
 REGISTERIMPL(Object);
 
@@ -35,19 +36,17 @@ REGISTERIMPL(Object);
     std::string objPath;
     std::string material;
 };
-const CJP::CreatorImpl<Object2> Object2::creator("Object2");*/
+const CJP::CreatorImpl<Object2> Object2::creator("Object2"); //*/
 
 int main(int argc, char const *argv[])
 {
-    //Base *p;
-    //p = Factory::create("Object2");
-
     auto parser = new CJP::JSONParser();
     parser->registerType(
         "Object",
         CJP::SpecialFields::Name, &Object::name,
         "objPath", &Object::objPath,
-        "material", &Object::material);
+        "material", &Object::material,
+        "integerValue", &Object::integerValue);
 
     parser->add("Object");
     //parser->register("objects", std::vector<Object>);//*/
