@@ -3,4 +3,10 @@ Object: {
     objPath: "./objects/apple.obj",
     material: "./materials/apple.mtl",
     integerValue: 15
+},
+Object: {
+    name: "apfel2",
+    objPath: "./objects/apple2.obj",
+    material: "./materials/apple2.mtl",
+    integerValue: 15
 }
