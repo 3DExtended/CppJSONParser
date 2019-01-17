@@ -5,6 +5,5 @@ namespace CJP
     public:
         Base() = default;
         virtual ~Base() = default;
-        virtual void foo() = 0;
     };
 }
